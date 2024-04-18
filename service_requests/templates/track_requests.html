@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Service Requests</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Track Service Requests</h2>
+    {% if service_requests %}
+        <table>
+            <tr>
+                <th>Request Type</th>
+                <th>Status</th>
+                <th>Details</th>
+                <th>Attachment</th>
+                <th>Submitted At</th>
+                <th>Resolved At</th>
+                <th>User Profile</th>
+            </tr>
+            {% for request in service_requests %}
+                <tr>
+                    <td>{{ request.request_type }}</td>
+                    <td>{{ request.status }}</td>
+                    <td>{{ request.details }}</td>
+                    {% comment %} <td><a href="{{ MEDIA_URL }}{{ request.attachment }}">{{ request.attachment }}</a></td> {% endcomment %}
+                    <td>{{ request.submitted_at }}</td>
+                    <td>{{ request.resolved_at }}</td>
+                    <td>{{ request.user_id }}</td> <!-- Assuming UserProfile model has __str__ method defined -->
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No service requests found.</p>
+    {% endif %}
+</body>
